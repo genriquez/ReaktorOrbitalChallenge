@@ -1,0 +1,9 @@
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\bin\Debug\OrbitalChallenge.exe.config
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\bin\Debug\OrbitalChallenge.exe
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\bin\Debug\OrbitalChallenge.pdb
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\obj\Debug\OrbitalChallenge.csprojResolveAssemblyReference.cache
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\obj\Debug\OrbitalChallenge.exe
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\obj\Debug\OrbitalChallenge.pdb
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\bin\Debug\orbitaldata.txt
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\bin\Debug\orbitaldata2.txt
+C:\Projects\ReaktorOrbitalChallenge\OrbitalChallenge\OrbitalChallenge\bin\Debug\orbitaldata3.txt
