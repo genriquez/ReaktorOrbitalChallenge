@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OrbitalChallenge.Models;
 
 namespace OrbitalChallenge.Resolvers
@@ -15,10 +12,13 @@ namespace OrbitalChallenge.Resolvers
             nodes.Add(this.OriginNode = new CommunicationsNode(orbitalData.Origin));
             nodes.Add(this.DestinationNode = new CommunicationsNode(orbitalData.Destination));
 
+            // Origin and Destination nodes are part of the mesh, and should compute visibility with satellites
+            this.Nodes = nodes;
+
             foreach (var node in nodes)
-            {
-                //var remainingNodes = nodes.SkipWhile(n => n != node).Skip(1);
-                node.ResolveReachableNodes(nodes);
+            {   // No need to check for reachability with nodes in past iterations of this loop
+                var remainingNodes = nodes.SkipWhile(n => n != node).Skip(1);
+                node.ResolveReachableNodes(remainingNodes);
             }
         }
 

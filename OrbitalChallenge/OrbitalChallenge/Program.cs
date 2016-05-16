@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OrbitalChallenge.Parsers;
 using OrbitalChallenge.Resolvers;
 
@@ -12,15 +9,18 @@ namespace OrbitalChallenge
     {
         static void Main(string[] args)
         {
-            var parser = new OrbitalDataParser();
-            var data = parser.ParseOrbitalData("orbitaldata.txt");
+            // Step 1: Parse the data into POCOs
+            var data = new OrbitalDataParser().ParseOrbitalData("orbitaldata.txt");
 
+            // Step 2: Build graph of nodes based on node visibility
             var mesh = new CommunicationsMesh(data);
+
+            // Step 3: Check all possible routes and use the shortest one
             var route = CommunicationsRouteResolver.ResolveRoute(mesh.OriginNode, mesh.DestinationNode);
 
             if (route != null)
             {
-                Console.WriteLine(String.Join(",", route.Select(r => r.Name)));
+                Console.WriteLine(String.Join(",", route.Select(r => r.Name).ToArray()));
             }
             else
             {

@@ -23,7 +23,6 @@ namespace OrbitalChallenge.Resolvers
         public CommunicationsNode(Node node)
         {
             this.Name = node.Name;
-            //this.Position = Vector3.FromAngularCoordinates(node.Longitude, node.Latitude, Constants.EarthRadiusInKilometers + node.Altitude);
             this.Position = Vector3.FromGeodeticCoordinates(node.Longitude, node.Latitude, node.Altitude);
 
             this.CalculateEarthHorizonParameters(node.Altitude == 0);
@@ -41,7 +40,10 @@ namespace OrbitalChallenge.Resolvers
             {
                 var distanceToNode = node.Position - this.Position;
 
-                var isReachable = distanceToNode.Magnitude < this.earthHorizonMagnitudeInKilometers || 
+                                  // Node is within the earth horizon radius, visibility is guaranteed as it can't be behind earth
+                var isReachable = distanceToNode.Magnitude < this.earthHorizonMagnitudeInKilometers ||
+
+                                  // Elevation angle to other node is above earth horizon, thus not behind earth
                                   Vector3.AngleBetween(-this.Position, distanceToNode) > this.earthHorizonElevationInRadians;
 
                 if (isReachable)
@@ -51,7 +53,7 @@ namespace OrbitalChallenge.Resolvers
                 }
             }
 
-            // Clear any potential duplicates added from other nodes
+            // Clear any potential duplicates added from other nodes 
             this.reachableNodes = this.reachableNodes.Distinct().ToList();
         }
 

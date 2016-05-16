@@ -9,6 +9,9 @@ namespace OrbitalChallenge.Parsers
 {
     class OrbitalDataParser
     {
+        /// <summary>
+        /// EN-US format provider is used as all decimal numbers are provided with dot decimal separator
+        /// </summary>
         private static readonly IFormatProvider FormatProvider = new CultureInfo("en-us");
 
         private Dictionary<string, Action<string>> lineParsers = new Dictionary<string, Action<string>>();
@@ -19,6 +22,7 @@ namespace OrbitalChallenge.Parsers
 
         public OrbitalDataParser()
         {
+            // Line parsers are evaluated checking the begining of each line
             this.lineParsers.Add("SAT", line => this.ParseSatellite(line));
             this.lineParsers.Add("ROUTE", line => this.ParseRoute(line));
         }
@@ -49,7 +53,7 @@ namespace OrbitalChallenge.Parsers
             using (var reader = File.OpenText(filepath))
             {
                 while (!reader.EndOfStream)
-                {
+                {   // No need to load whole file into memory as string at once
                     yield return reader.ReadLine();
                 }
             }
@@ -58,16 +62,15 @@ namespace OrbitalChallenge.Parsers
         private void ParseSatellite(string line)
         {
             var values = line.Split(',');
-
-            this.satellites.Add(new Satellite(values[0], ParseDouble(values[1]), ParseDouble(values[2]), ParseDouble(values[3])));
+            this.satellites.Add(new Satellite(values[0], ParseDouble(values[2]), ParseDouble(values[1]), ParseDouble(values[3])));
         }
 
         private void ParseRoute(string line)
         {
             var values = line.Split(',');
 
-            this.origin = new Terminal("ORIGIN", ParseDouble(values[1]), ParseDouble(values[2]));
-            this.destination = new Terminal("DESTINATION", ParseDouble(values[3]), ParseDouble(values[4]));
+            this.origin = new Terminal("ORIGIN", ParseDouble(values[2]), ParseDouble(values[1]));
+            this.destination = new Terminal("DESTINATION", ParseDouble(values[4]), ParseDouble(values[3]));
         }
 
         private static double ParseDouble(string input)

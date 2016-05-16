@@ -43,24 +43,17 @@ namespace OrbitalChallenge.MathUtils
             return new Vector3(-a.X, -a.Y, -a.Z);
         }
 
-        public static Vector3 FromAngularCoordinates(double rotation, double elevation, double magnitude)
-        {
-            var z = Math.Sin(elevation / 180 * Math.PI) * magnitude;
-            var xy = Math.Cos(elevation / 180 * Math.PI) * magnitude;
-            var x = xy * Math.Cos(rotation / 180 * Math.PI);
-            var y = xy * Math.Sin(rotation / 180 * Math.PI);
-
-            return new Vector3(x, y, z);
-        }
-
         public static Vector3 FromGeodeticCoordinates(double lon, double lat, double altitude)
         {   // Based on http://mathforum.org/library/drmath/view/51832.html
             // f is 0, as the earth is considered perfectly round
-            // s is = to c, as f is 0
+            // s = c = 1, as f is 0
+
+            lat = Math.PI * lat / 180;
+            lon = Math.PI * lon / 180;
 
             var a = Constants.EarthRadiusInKilometers;
             var h = altitude;
-            var s = 1 / Math.Sqrt(Math.Pow(Math.Cos(Math.PI * lat / 180), 2) + Math.Pow(Math.Sin(Math.PI * lat / 180), 2));
+            var s = 1; // 1 / Math.Sqrt(Math.Pow(Math.Cos(Math.PI * lat / 180), 2) + Math.Pow(Math.Sin(Math.PI * lat / 180), 2));
 
             var x = (a * s + h) * Math.Cos(lat) * Math.Cos(lon);
             var y = (a * s + h) * Math.Cos(lat) * Math.Sin(lon);
